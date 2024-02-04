@@ -4,9 +4,12 @@ import About from './pages/About';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Profile from './pages/Profile';
+import Header from './components/Header';
 export default function App() {
   return (
     <BrowserRouter>
+    {/* Headers componentes is comman for all pages that why we adding Outside the routes and inside the BrowserRoutes  */}
+      <Header />
       <Routes>
         <Route path='/' element={<Home />} /> 
         <Route path='/about' element={<About />} /> 
