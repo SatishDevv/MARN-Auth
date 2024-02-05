@@ -4,7 +4,7 @@ import bcryptjs from 'bcryptjs';
 export const singUP = async (req, res, next) => {
 // distructures req.body
   const { username, email, password } = req.body;
-//  create  a hash password using the bryptjs library by passing cleartext password and ...
+//  create  a hash password using the bryptjs library inside the bryptjs.hashSync() method. by passing cleartext password and second parameter/arguments is number of rounds of hashing to perform. in this case 10 round of hashing are used.
   const hashPassword = bcryptjs.hashSync(password, 10);
   const newUser = new User({
     username,
@@ -19,7 +19,7 @@ export const singUP = async (req, res, next) => {
       message: 'User created successfully',
     });
   } catch (error) {
-    res.json({ error: error.message });
+    next(error)
   }
 
 };

@@ -6,7 +6,7 @@ import authRoutes from './routes/auth.route.js'
 dotenv.config();
 
 const app = express();
-// it allows you to get the data in json format from the client side.
+// it allows you to get the data in json format from the client side,
 app.use(express.json());
 
 // this is an connection method that is used to connect to the database server. if there is connection error will be returned instead.
@@ -28,3 +28,15 @@ mongoose
 app.use("/api/user", userRoutes);
 app.use('/api/auth', authRoutes );
 
+
+// creata a middlware to handle the error
+
+app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500;
+    const message = err.message || 'Internal Server Error';
+    return res.status(statusCode).json({
+        success: false,
+        message,
+        statusCode,
+    })
+})
