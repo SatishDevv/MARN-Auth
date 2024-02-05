@@ -1,0 +1,7 @@
+
+
+export const test = (req, res, next ) => {
+  res.json({
+    message : 'this controller file working properly'
+  })
+}
