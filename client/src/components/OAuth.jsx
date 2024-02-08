@@ -1,6 +1,8 @@
 import { GoogleAuthProvider, signInWithPopup, getAuth } from "firebase/auth";
 import { app } from "../../firebase";
-import { useDispatch } from "react-redux"; ;
+import { useDispatch } from "react-redux";
+import { signInSuccess } from "../redux/user/userSlice";
+ 
 
 export default function OAuth() {
     const dispatch = useDispatch();
@@ -21,6 +23,7 @@ export default function OAuth() {
         }),
       });
       const data = await res.json();
+      console.log(data);
       dispatch(signInSuccess(data));
     } catch (error) {
       console.log(`Could not login with Google ${error}`);
