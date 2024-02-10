@@ -62,7 +62,7 @@ export default function Profile() {
         />
         <img
           className="w-24 h-24 self-center cursor-pointer rounded-full object-cover mt-2 "
-          src={currentUser.profilePicture}
+          src={ formData.profilePicture || currentUser.profilePicture}
           alt="profile"
           onClick={() => fileRef.current.click()}
         />
