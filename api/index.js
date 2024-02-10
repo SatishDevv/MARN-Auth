@@ -3,11 +3,14 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoutes from "./routes/user.route.js";
 import authRoutes from './routes/auth.route.js'
+import cookieParser from "cookie-parser";
+
 dotenv.config();
 
 const app = express();
 // it allows you to get the data in json format from the client side,
 app.use(express.json());
+app.use(cookieParser());
 
 // this is an connection method that is used to connect to the database server. if there is connection error will be returned instead.
 mongoose
