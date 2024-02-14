@@ -11,6 +11,9 @@ import {
   updateUserStart,
   updateUserSuccess,
   updateUserFailure,
+  deleteUserStart,
+  deleteUserFailure,
+  deleteUserSuccess,
 } from "../redux/user/userSlice";
 
 export default function Profile() {
@@ -79,6 +82,25 @@ export default function Profile() {
     }
   };
 
+  // handle delete user account button
+
+  const handleDeleteAccount = async () => {
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.success === false){
+        dispatch(deleteUserFailure(data))
+        return
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error));
+    }
+  };
+
   return (
     <div className="p-3 max-w-lg mx-auto ">
       <h1 className="text-3xl font-semibold text-center py-7 ">Profile</h1>
@@ -132,12 +154,14 @@ export default function Profile() {
           className="bg-slate-100 p-3 rounded-lg "
           onChange={handleChange}
         />
-        <button  className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-45 ">
-          { loading ? 'Loading...' : 'Update' }
+        <button className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-45 ">
+          {loading ? "Loading..." : "Update"}
         </button>
       </form>
       <div className="flex justify-between mt-5 ">
-        <span className="text-red-500">Delete Account</span>
+        <span onClick={handleDeleteAccount} className="text-red-500">
+          Delete Account
+        </span>
         <span className="text-red-500">Sign Out</span>
       </div>
       <p className="text-red-700 mt-5  ">{error && "Something want Worng!"} </p>
