@@ -84,3 +84,9 @@ export const googleOAuth = async (req, res, next) => {
     next(error);
   }
 };
+
+// user signOut functionality.
+
+export const signOut = async (req, res ) => {
+  res.clearCookie("access_token").status(200).json('SignOut successful !') ;
+}
