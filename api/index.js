@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import userRoutes from "./routes/user.route.js";
 import authRoutes from './routes/auth.route.js'
 import cookieParser from "cookie-parser";
+import connectDB from "./db/connection.js";
 
 dotenv.config();
 
@@ -13,14 +14,13 @@ app.use(express.json());
 app.use(cookieParser());
 
 // this is an connection method that is used to connect to the database server. if there is connection error will be returned instead.
-mongoose
-  .connect(process.env.MONGO_TEST)
-  .then(() => {
-    console.log("connected to the mongoose database server");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+connectDB()
+.then(() => {
+    console.log("connection established");
+})
+.catch((error) =>{
+    console.log(`this is DB connection error ${error}`); 
+})
 
   app.listen(3000, () => {
     console.log("server listening on port 3000");
