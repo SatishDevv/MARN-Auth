@@ -24,7 +24,7 @@ export const singUP = async (req, res, next) => {
     next(error);
   }
 };
-
+// signIn method to handle the sign in process.
 export const signIn = async (req, res, next) => {
   const { email, password } = req.body;
   try {
